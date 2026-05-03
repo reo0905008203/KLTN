@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Đơn hàng - PC Shop</title>
+    <style>
+        .admin-orders-container {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .admin-orders-container h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        .action-button {
+            display: inline-block;
+            padding: 6px 15px;
+            margin: 3px;
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-size: 14px;
+        }
+        .action-button.cancel {
+            background-color: #f44336;
+        }
+        .action-button:hover {
+            background-color: #45a049;
+        }
+        .action-button.cancel:hover {
+            background-color: #d32f2f;
+        }
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+</body>
+    <div class="admin-orders-container">
+        <h2>Quản lý đơn hàng</h2>
+        <% if (orders.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Người đặt</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái đơn</th>
+                        <th>Trạng thái thanh toán</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% orders.forEach(order => { %>
+                        <tr>
+                            <td><%= order.Order_id %></td>
+                            <td><%= order.Ho_Ten_User %></td>
+                            <td><%= new Date(order.Ngay_Dat).toLocaleString("vi-VN") %></td>
+                            <td><%= order.Tong_Gia.toLocaleString() %>₫</td>
+                            <td><%= order.Trang_Thai %></td>
+                            <td><%= order.Trang_Thai_Thanh_Toan %></td>
+                            <td>
+                                <% if (order.Trang_Thai === 'Chờ xử lý') { %>
+                                    <a href="/admin/orders/confirm/<%= order.Order_id %>" class="action-button">Xác nhận</a>
+                                    <a href="/admin/orders/cancel/<%= order.Order_id %>" class="action-button cancel" onclick="return confirm('Bạn có chắc muốn hủy?')">Hủy</a>
+                                <% } else if (order.Trang_Thai === 'Xác nhận') { %>
+                                    <a href="/admin/orders/complete/<%= order.Order_id %>" class="action-button">Hoàn thành</a>
+                                    <a href="/admin/orders/cancel/<%= order.Order_id %>" class="action-button cancel" onclick="return confirm('Bạn có chắc muốn hủy?')">Hủy</a>
+                                <% } else { %>
+                                    <a href="/admin/orders/del/<%= order.Order_id %>" class="action-button cancel" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>Không có đơn hàng nào.</p>
+        <% } %>
+    </div>
+</body>
+</html>

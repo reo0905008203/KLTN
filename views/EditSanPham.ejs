@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Sửa sản phẩm - PC Shop</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <div class="lr">
+        <form action="/admin/EditSP" method="POST" enctype="multipart/form-data" class="l-form">
+            <h2>Sửa Sản Phẩm</h2>
+            <input type="hidden" name="Ma_SP" value="<%= pro.Product_id %>">
+            
+            <label for="Ten_SP">Tên sản phẩm</label>
+            <input type="text" name="Ten_SP" value="<%= pro.Ten_Product %>" required>
+
+            <label for="Mo_Ta">Mô tả</label>
+            <textarea name="Mo_Ta" rows="4" required style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px;"><%= pro.Mo_Ta_Product %></textarea>
+
+            <label for="Danh_Muc">Danh Mục</label>
+            <select name="Danh_Muc" id="Danh_Muc" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 5px; margin-bottom: 15px;">
+                <% Catas.forEach(cata => { %>
+                    <option value="<%= cata.Cata_id %>" <%= cata.Cata_id === pro.Danh_Muc_id ? 'selected' : '' %>><%= cata.Ten_Cata %></option>
+                <% }) %>
+            </select>
+
+            <label for="Gia">Giá</label>
+            <input type="number" name="Gia" value="<%= pro.Gia %>" required min="0" step="0.01">
+
+            <label for="So_Luong">Số lượng</label>
+            <input type="number" name="So_Luong" value="<%= pro.So_Luong %>" required min="0">
+
+            <label for="Hinh_Anh">Hình ảnh mới (để trống nếu không đổi)</label>
+            <input type="file" name="Hinh_Anh" accept="image/*" style="margin-bottom: 15px;">
+            <p>Ảnh hiện tại: <img src="<%= pro.Anh_SP %>" width="100" style="display: block; margin-top: 10px;"></p>
+
+            <button type="submit">Cập nhật</button>
+            
+            <a href="/admin/Quanlysanpham">Trở lại</a>
+        </form>
+    </div>
+</body>
+</html>

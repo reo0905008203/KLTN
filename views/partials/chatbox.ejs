@@ -1,0 +1,5 @@
+<% if (typeof user !== 'undefined' && user) { %>
+    <link rel="stylesheet" href="/styles/chatbox.css">
+    <div data-user-id="<%= user.User_id.trim() %>" data-is-admin="<%= user.Quyen_han ? 'true' : 'false' %>" style="display: none;"></div>
+    <script src="/js/chatbox.js"></script>
+<% } %>
