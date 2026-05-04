@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản phẩm - PC Shop</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+
+<header>
+    <div class="logo">
+        <a href="/"><h1>PC Shop</h1></a>
+    </div>
+    <nav>
+        <form action="/search" method="get" class="search-form">
+            <input type="text" name="keyword" placeholder="Tìm sản phẩm..." required>
+            <button type="submit">Tìm</button>
+        </form>
+        <a href="/">Trang chủ</a>
+        <a href="/products">Sản phẩm</a>
+        <a href="/orders">Đơn hàng</a>
+        <a href="/Cart">Giỏ hàng</a>
+        <a href="/logout">Đăng xuất</a>
+    </nav>
+</header>
+
+<body>
+    <div class="wrapper">
+        <h1>Danh Sách Sản Phẩm</h1>
+
+        <div class="content">
+            <aside class="category-menu">
+                <h3>Danh Mục</h3>
+                <ul>
+                    <li><a href="/products">Tất cả</a></li>
+                    <% if (!Catas || Catas.length === 0) { %>
+                        <li>Không có danh mục nào</li>
+                    <% } else { %>
+                        <% Catas.forEach(cata => { %>
+                            <li><a href="/Products/cata/<%= cata.Cata_id %>"><%= cata.Ten_Cata %></a></li>
+                        <% }) %>
+                    <% } %>
+                </ul>
+            </aside>
+        
+            <div class="product-container">
+                <% if (Products && Products.length > 0) { %>
+                    <% Products.forEach(product => { %>
+                        <div class="product-item">
+                            <a href="/Products/<%= product.Product_id %>"> 
+                                <img src="<%= product.Anh_SP || '/uploads/default-pc.jpg' %>" alt="<%= product.Ten_Product %>">
+                                <h3><%= product.Ten_Product %></h3>
+                            </a>
+                            <p class="price"><%= product.Gia.toLocaleString() %> VND</p>
+                            <% if (product.So_Luong > 0 ) { %>
+                                <p class="stock">Còn hàng: <%= product.So_Luong %></p>
+                            <% } else { %>
+                                <p class="out-of-stock">Hết hàng</p>
+                            <% } %>
+                            <form action="/Products/cart/add" method="POST">
+                                <input type="hidden" name="Product_id" value="<%= product.Product_id %>">
+                                <button class="btn-add" type="submit">Thêm vào giỏ hàng</button>
+                            </form>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <h2>Không có sản phẩm nào</h2>
+                <% } %>
+            </div>
+        </div>        
+    </div>
+    <div class="pagination">
+        <% if (currentPage > 1) { %>
+            <a href="/products?page=<%= currentPage - 1 %>">&laquo; Trước</a>
+        <% } %>
+    
+        <% for (let i = 1; i <= totalPages; i++) { %>
+            <a href="/products?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+        <% } %>
+    
+        <% if (currentPage < totalPages) { %>
+            <a href="/products?page=<%= currentPage + 1 %>">Sau &raquo;</a>
+        <% } %>
+    </div>
+</body>
+
+<footer>
+    <div class="logo">
+        <a href="/"><h2>PC Shop</h2></a>
+    </div>
+    <div class="info">
+        <p>Địa chỉ: Đà Nẵng, Việt Nam</p>
+        <p>SĐT: 0123456789</p>
+        <p>Email: support@pcshop.com</p>
+    </div>
+    <div class="req">
+        <p><a href="#">Chính sách mua hàng</a> </p>
+        <p><a href="#">Hỗ trợ</a></p>
+    </div>
+</footer>
+
+<% if (typeof user !== 'undefined' && user) { %>
+    <link rel="stylesheet" href="/styles/chatbox.css">
+    <div data-user-id="<%= user.User_id.trim() %>" data-is-admin="<%= user.Quyen_han ? 'true' : 'false' %>" style="display: none;"></div>
+    <script src="/js/chatbox.js"></script>
+<% } %>
+
+</html>

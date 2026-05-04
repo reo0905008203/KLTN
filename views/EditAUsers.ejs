@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Sửa người dùng - PC Shop</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <div class="lr">
+        <form action="/admin/edit" method="POST" class="l-form">
+            <h2>Sửa Người Dùng</h2>
+            <input type="hidden" name="Username" value="<%= user.User_id %>">
+            
+            <label for="Password">Mật khẩu</label>
+            <input type="text" name="Password" value="<%= user.Mat_Khau %>" required>
+
+            <label for="Fullname">Họ và Tên</label>
+            <input type="text" name="Fullname" value="<%= user.Ho_Ten_User %>" required>
+
+            <label for="Diachi">Địa chỉ</label>
+            <input type="text" name="Diachi" value="<%= user.Dia_Chi_User %>" required>
+
+            <label for="Phone">Số điện thoại</label>
+            <input type="text" name="Phone" value="<%= user.Phone %>" required>
+
+            <button type="submit">Cập nhật</button>
+            
+            <a href="/admin/Quanlynguoidung">Trở lại</a>
+        </form>
+    </div>
+</body>
+</html>

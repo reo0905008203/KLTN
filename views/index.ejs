@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Shop - Cửa hàng PC và Linh kiện máy tính</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+
+<header>
+    <div class="logo">
+        <a href="/"><h1>PC Shop</h1></a>
+    </div>
+    <nav>
+        <form action="/search" method="get" class="search-form">
+            <input type="text" name="keyword" placeholder="Tìm sản phẩm..." required>
+            <button type="submit">Tìm</button>
+        </form>
+        <a href="/">Trang chủ</a>
+        <a href="/products">Sản phẩm</a>
+        <a href="/login">Đăng Nhập</a>
+    </nav>
+</header>
+
+<body>
+    <div class="banner">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200" alt="PC Banner">
+    </div>
+
+    <section class="features">
+        <div class="feature">
+            <div><img src="https://cdn-icons-png.flaticon.com/512/2830/2830284.png" alt="Giao hàng nhanh"></div>
+            <p>Giao hàng nhanh</p>
+        </div>
+        <div class="feature">
+            <div><img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Tư vấn chuyên nghiệp"></div>
+            <p>Tư vấn chuyên nghiệp</p>
+        </div>
+        <div class="feature">
+            <div><img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="Sản phẩm chất lượng"></div>
+            <p>Sản phẩm chất lượng</p>
+        </div>
+        <div class="feature">
+            <div><img src="https://cdn-icons-png.flaticon.com/512/3135/3135807.png" alt="Thanh toán linh hoạt"></div>
+            <p>Thanh toán linh hoạt</p>
+        </div>
+    </section>
+
+    <h2>Sản Phẩm Nổi Bật</h2>
+
+    <div class="product-container-1">
+        <div class="product-section">
+            <div class="product-grid">
+                <% Pros.forEach(pro => { %>
+                    <a href="/Products/<%= pro.Product_id %>">
+                        <div class="product-card">
+                            <img src="<%= pro.Anh_SP || '/uploads/default-pc.jpg' %>" alt="Product">
+                            <h3><%= pro.Ten_Product %></h3>
+                            <p>Giá: <%= pro.Gia.toLocaleString() %> ₫</p>
+                            <% if (pro.So_Luong > 0 ) { %>
+                                <p>Số Lượng: <%= pro.So_Luong %></p>
+                            <% } else { %>
+                                <p class="out-of-stock">Hết hàng</p>
+                            <% } %>
+                        </div>
+                    </a>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</body>
+
+<footer>
+    <div class="logo">
+        <a href="/"><h2>PC Shop</h2></a>
+    </div>
+    <div class="info">
+        <p>Địa chỉ: Đà Nẵng, Việt Nam</p>
+        <p>SĐT: 0123456789</p>
+        <p>Email: support@pcshop.com</p>
+    </div>
+    <div class="req">
+        <p><a href="#">Chính sách mua hàng</a> </p>
+        <p><a href="#">Hỗ trợ</a></p>
+    </div>
+</footer>
+
+</html>

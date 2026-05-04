@@ -1,0 +1,22 @@
+{
+  "name": "pc-shop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "Website bán PC và linh kiện máy tính",
+  "dependencies": {
+    "app-root-path": "^3.1.0",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "moment-timezone": "^0.5.48",
+    "mssql": "^11.0.1",
+    "multer": "^1.4.5-lts.1",
+    "body-parser": "^1.20.2"
+  }
+}
